@@ -1,12 +1,16 @@
 package co.edu.udistrital.mdp.handler;
 
 import co.edu.udistrital.mdp.datamodel.CreditRequest;
-
+/**
+ * BranchManager maneja créditos hipotecarios, comerciales
+ * o de negocio hasta un límite de 2 millones.
+ */
 public class BranchManager extends BaseHandler {
-    private double maxLimit = 2000000;
+    private double maxLimit = 2000000; // Límite máximo que puede autorizar
     
     @Override
     protected boolean canHandle(CreditRequest request) {
+              // Verifica monto y tipo de crédito permitido
         return request.getAmount() <= maxLimit && 
                (request.getCreditType().toLowerCase().contains("mortgage") ||
                 request.getCreditType().toLowerCase().contains("commercial") ||
@@ -15,6 +19,7 @@ public class BranchManager extends BaseHandler {
     
     @Override
     protected void processRequest(CreditRequest request) {
+        // Simula el procesamiento de la solicitud
         System.out.println("PROCESSED BY BRANCH MANAGER");
         System.out.println("Client: " + request.getClientName());
         System.out.println("Type: " + request.getCreditType());
@@ -33,6 +38,7 @@ public class BranchManager extends BaseHandler {
     
     @Override
     public void handleRequest(CreditRequest request) {
+           // Procesa si corresponde, de lo contrario pasa al siguiente nivel
         if (canHandle(request)) {
             processRequest(request);
         } else {
@@ -41,3 +47,4 @@ public class BranchManager extends BaseHandler {
         }
     }
 }
+
