@@ -1,12 +1,17 @@
 package co.edu.udistrital.mdp.handler;
 
 import co.edu.udistrital.mdp.datamodel.CreditRequest;
-
+/**
+ * CommercialAdvisor maneja solicitudes pequeñas como aperturas,
+ * créditos personales y tarjetas, con un límite de 500 mil.
+ */
 public class CommercialAdvisor extends BaseHandler {
     private double maxLimit = 500000;
     
     @Override
     protected boolean canHandle(CreditRequest request) {
+                // Verifica que el monto no supere el límite
+        // y que el tipo de crédito corresponda
         return request.getAmount() <= maxLimit && 
                (request.getCreditType().toLowerCase().contains("opening") ||
                 request.getCreditType().toLowerCase().contains("personal") ||
@@ -33,6 +38,8 @@ public class CommercialAdvisor extends BaseHandler {
     
     @Override
     public void handleRequest(CreditRequest request) {
+                // Procesa si cumple con las condiciones,
+        // de lo contrario pasa la solicitud al siguiente nivel
         if (canHandle(request)) {
             processRequest(request);
         } else {
@@ -41,3 +48,4 @@ public class CommercialAdvisor extends BaseHandler {
         }
     }
 }
+
