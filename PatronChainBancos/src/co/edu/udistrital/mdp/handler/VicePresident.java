@@ -1,8 +1,15 @@
 package co.edu.udistrital.mdp.handler;
 
 import co.edu.udistrital.mdp.datamodel.CreditRequest;
-
+/**
+ * Handler que representa al Vicepresidente.
+ * Se encarga de solicitudes de alto nivel (fusiones, políticas, institucionales o legales).
+ */
 public class VicePresident extends BaseHandler {
+        /**
+     * Verifica si la solicitud corresponde al tipo
+     * que el Vicepresidente puede manejar.
+     */
     @Override
     protected boolean canHandle(CreditRequest request) {
         return request.getCreditType().toLowerCase().contains("merger") ||
@@ -10,7 +17,10 @@ public class VicePresident extends BaseHandler {
                request.getCreditType().toLowerCase().contains("institutional") ||
                request.getCreditType().toLowerCase().contains("legal");
     }
-    
+    /**
+     * Procesa la solicitud si cumple con las condiciones
+     * y valida el puntaje del cliente.
+     */
     @Override
     protected void processRequest(CreditRequest request) {
         System.out.println("PROCESSED BY VICE PRESIDENT");
@@ -28,7 +38,10 @@ public class VicePresident extends BaseHandler {
         }
         System.out.println();
     }
-    
+    /**
+     * Maneja la solicitud si puede hacerlo,
+     * en caso contrario la reenvía al siguiente en la cadena.
+     */
     @Override
     public void handleRequest(CreditRequest request) {
         if (canHandle(request)) {
@@ -39,3 +52,4 @@ public class VicePresident extends BaseHandler {
         }
     }
 }
+
